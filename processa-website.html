@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Processa automates quote and order processing directly in Orderwise. AI reads your emails, matches your catalogue, and loads quotes in seconds — not hours.">
+<meta name="keywords" content="Orderwise AI, Orderwise automation, Orderwise quote automation, Orderwise AI integration, Orderwise email processing, ERP automation, quote processing software">
+<title>Processa — AI Quote Automation for Orderwise</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0f1117;
+    --ink-mid: #3d4149;
+    --ink-dim: #7a7f8a;
+    --paper: #f8f7f4;
+    --white: #ffffff;
+    --accent: #0052cc;
+    --accent-light: #e8f0fe;
+    --accent-glow: rgba(0, 82, 204, 0.12);
+    --border: #e2e1de;
+    --green: #0a7c4e;
+    --green-bg: #edfbf4;
+    --warn: #b84c00;
+    --warn-bg: #fff4ec;
+    --radius: 10px;
+    --shadow: 0 2px 16px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(248,247,244,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.3px;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a {
+    font-size: 14px; font-weight: 500;
+    color: var(--ink-mid); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  .nav-cta {
+    background: var(--accent); color: white !important;
+    padding: 8px 20px; border-radius: 6px;
+    font-size: 14px !important;
+    transition: background 0.2s, transform 0.1s !important;
+  }
+  .nav-cta:hover { background: #0041a8 !important; transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    padding: 100px 5% 80px;
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent-light); color: var(--accent);
+    font-size: 12px; font-weight: 600; letter-spacing: 0.5px;
+    text-transform: uppercase; padding: 5px 12px; border-radius: 20px;
+    margin-bottom: 24px;
+  }
+
+  .hero-eyebrow::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--accent); border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(36px, 4vw, 52px);
+    line-height: 1.1;
+    letter-spacing: -1px;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 18px; color: var(--ink-mid);
+    line-height: 1.6; margin-bottom: 36px;
+    font-weight: 400;
+  }
+
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--accent); color: white;
+    padding: 14px 28px; border-radius: 8px;
+    font-size: 15px; font-weight: 600;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    box-shadow: 0 4px 12px rgba(0,82,204,0.3);
+  }
+  .btn-primary:hover {
+    background: #0041a8; transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,82,204,0.4);
+  }
+
+  .btn-secondary {
+    background: transparent; color: var(--ink);
+    padding: 14px 28px; border-radius: 8px;
+    font-size: 15px; font-weight: 500;
+    text-decoration: none; border: 1.5px solid var(--border);
+    cursor: pointer; transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--ink-mid); background: white; }
+
+  .hero-stat {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: var(--ink-dim); margin-top: 24px;
+  }
+
+  .hero-stat svg { color: var(--green); }
+
+  /* DEMO CARD */
+  .demo-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    transform: perspective(1000px) rotateY(-3deg) rotateX(2deg);
+    transition: transform 0.3s;
+  }
+  .demo-card:hover { transform: perspective(1000px) rotateY(0deg) rotateX(0deg); }
+
+  .demo-card-header {
+    background: var(--ink); padding: 12px 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #ff5f56; }
+  .dot-y { background: #ffbd2e; }
+  .dot-g { background: #27c93f; }
+  .demo-card-title { color: rgba(255,255,255,0.5); font-size: 12px; margin-left: 8px; }
+
+  .demo-card-body { padding: 20px; }
+
+  .demo-email {
+    background: var(--paper); border-radius: 8px;
+    padding: 14px; font-size: 12px; color: var(--ink-mid);
+    line-height: 1.7; margin-bottom: 16px;
+    border: 1px solid var(--border);
+  }
+
+  .demo-email strong { color: var(--ink); }
+
+  .demo-arrow {
+    text-align: center; color: var(--accent);
+    font-size: 20px; margin-bottom: 16px;
+    animation: bounce 1.5s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+  }
+
+  .demo-result { display: flex; flex-direction: column; gap: 8px; }
+
+  .demo-line {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--green-bg); border: 1px solid #b7f0d4;
+    border-radius: 6px; padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .demo-line-code { font-family: monospace; font-weight: 600; color: var(--green); }
+  .demo-line-desc { color: var(--ink-mid); flex: 1; margin: 0 10px; }
+  .demo-line-price { font-weight: 600; color: var(--ink); }
+  .demo-line-conf {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.3px;
+    background: var(--green); color: white;
+    padding: 2px 6px; border-radius: 4px;
+  }
+
+  .demo-timing {
+    margin-top: 12px; text-align: center;
+    font-size: 11px; color: var(--ink-dim);
+  }
+  .demo-timing strong { color: var(--green); font-size: 13px; }
+
+  /* LOGOS */
+  .logos-section {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 32px 5%; background: white;
+    text-align: center;
+  }
+  .logos-label {
+    font-size: 12px; font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--ink-dim);
+    margin-bottom: 24px;
+  }
+  .logos-row {
+    display: flex; justify-content: center; align-items: center;
+    gap: 48px; flex-wrap: wrap;
+  }
+  .logo-pill {
+    background: var(--paper); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 20px;
+    font-size: 13px; font-weight: 600; color: var(--ink-mid);
+    letter-spacing: 0.3px;
+  }
+
+  /* HOW IT WORKS */
+  .section {
+    padding: 80px 5%;
+    max-width: 1100px; margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 12px; font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.15; letter-spacing: -0.5px;
+    color: var(--ink); margin-bottom: 16px;
+  }
+
+  .section-sub {
+    font-size: 17px; color: var(--ink-mid);
+    max-width: 540px; margin-bottom: 56px;
+  }
+
+  .steps {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .step {
+    background: white; border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 32px 28px;
+    position: relative; transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .step:hover { box-shadow: var(--shadow); transform: translateY(-4px); }
+
+  .step-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 48px; color: var(--accent-light);
+    line-height: 1; margin-bottom: 16px;
+    font-style: italic;
+  }
+
+  .step h3 {
+    font-size: 17px; font-weight: 600;
+    color: var(--ink); margin-bottom: 10px;
+  }
+
+  .step p { font-size: 14px; color: var(--ink-mid); line-height: 1.6; }
+
+  .step-tag {
+    display: inline-block; margin-top: 16px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.3px;
+    color: var(--accent); background: var(--accent-light);
+    padding: 3px 8px; border-radius: 4px;
+  }
+
+  /* BENEFITS */
+  .benefits-section {
+    background: var(--ink); color: white;
+    padding: 80px 5%;
+  }
+
+  .benefits-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+
+  .benefits-section .section-label { color: #6b9fff; }
+  .benefits-section h2 { color: white; }
+  .benefits-section .section-sub { color: rgba(255,255,255,0.6); }
+
+  .benefits-list { display: flex; flex-direction: column; gap: 24px; }
+
+  .benefit {
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+
+  .benefit-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+
+  .benefit h4 { font-size: 15px; font-weight: 600; color: white; margin-bottom: 4px; }
+  .benefit p { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+
+  .stats-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .stat-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius); padding: 28px 24px;
+  }
+
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 42px; color: white; line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-num span { color: #6b9fff; }
+  .stat-label { font-size: 13px; color: rgba(255,255,255,0.5); }
+
+  /* WHO ITS FOR */
+  .who-section { padding: 80px 5%; }
+  .who-inner { max-width: 1100px; margin: 0 auto; }
+
+  .who-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px; margin-top: 48px;
+  }
+
+  .who-card {
+    border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 28px 24px; background: white;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .who-card:hover { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+
+  .who-icon { font-size: 28px; margin-bottom: 14px; }
+  .who-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .who-card p { font-size: 13px; color: var(--ink-mid); line-height: 1.6; }
+
+  /* CTA */
+  .cta-section {
+    padding: 80px 5%; text-align: center;
+    background: white; border-top: 1px solid var(--border);
+  }
+
+  .cta-inner { max-width: 600px; margin: 0 auto; }
+  .cta-section h2 { margin-bottom: 16px; }
+  .cta-section p { font-size: 17px; color: var(--ink-mid); margin-bottom: 36px; }
+
+  .waitlist-form {
+    display: flex; gap: 10px; max-width: 440px;
+    margin: 0 auto 16px;
+  }
+
+  .waitlist-form input {
+    flex: 1; padding: 13px 16px;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    font-size: 15px; font-family: inherit;
+    background: var(--paper); color: var(--ink);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .waitlist-form input:focus { border-color: var(--accent); }
+  .waitlist-form input::placeholder { color: var(--ink-dim); }
+
+  .cta-note { font-size: 12px; color: var(--ink-dim); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink); color: rgba(255,255,255,0.5);
+    padding: 32px 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+  }
+
+  .footer-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px; color: white;
+  }
+  .footer-logo span { color: #6b9fff; }
+
+  footer p { font-size: 13px; }
+  footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+  footer a:hover { color: white; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; gap: 40px; padding: 60px 5%; }
+    .demo-card { transform: none; }
+    .steps { grid-template-columns: 1fr; }
+    .benefits-inner { grid-template-columns: 1fr; gap: 48px; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .who-grid { grid-template-columns: 1fr; }
+    .waitlist-form { flex-direction: column; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Proces<span>sa</span></a>
+  <div class="nav-links">
+    <a href="#how-it-works">How it works</a>
+    <a href="#benefits">Benefits</a>
+    <a href="#who">Who it's for</a>
+    <a href="#waitlist" class="nav-cta">Book a demo</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">AI-powered · Built for Orderwise</div>
+    <h1>Stop processing quotes <em>manually</em></h1>
+    <p class="hero-sub">
+      Processa reads your incoming emails, matches your Orderwise catalogue, 
+      and loads the quote automatically — in seconds, not hours.
+    </p>
+    <div class="hero-actions">
+      <a href="#waitlist" class="btn-primary">Book a demo</a>
+      <a href="#how-it-works" class="btn-secondary">See how it works</a>
+    </div>
+    <div class="hero-stat">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      Built by a Sales Manager who got tired of doing it manually
+    </div>
+  </div>
+
+  <!-- DEMO CARD -->
+  <div>
+    <div class="demo-card">
+      <div class="demo-card-header">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <span class="demo-card-title">Incoming email → Orderwise quote</span>
+      </div>
+      <div class="demo-card-body">
+        <div class="demo-email">
+          <strong>From:</strong> james.cooper@acme-electrical.co.uk<br>
+          <strong>Subject:</strong> Quote request<br><br>
+          Hi, can you quote me on the following:<br>
+          25mm white flexible conduit x 2 (100m),<br>
+          Natural cable ties 300mm x 5 packs,<br>
+          Single gang surface boxes x 20,<br>
+          PVC tape black x 10<br><br>
+          Delivery next day please
+        </div>
+        <div class="demo-arrow">↓</div>
+        <div class="demo-result">
+          <div class="demo-line">
+            <span class="demo-line-code">FLC25W</span>
+            <span class="demo-line-desc">25mm White Flexible Conduit 50m</span>
+            <span class="demo-line-price">£44.00</span>
+            <span class="demo-line-conf">HIGH</span>
+          </div>
+          <div class="demo-line">
+            <span class="demo-line-code">CT300N</span>
+            <span class="demo-line-desc">Natural Cable Ties 300mm Bag/100</span>
+            <span class="demo-line-price">£1.69</span>
+            <span class="demo-line-conf">HIGH</span>
+          </div>
+          <div class="demo-line">
+            <span class="demo-line-code">SGB25</span>
+            <span class="demo-line-desc">Single Gang Metal Surface Box</span>
+            <span class="demo-line-price">£5.20</span>
+            <span class="demo-line-conf">HIGH</span>
+          </div>
+        </div>
+        <div class="demo-timing">Processed in <strong>4 seconds</strong> · 8 lines matched · loaded into Orderwise</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LOGOS -->
+<div class="logos-section">
+  <p class="logos-label">Works with your existing systems</p>
+  <div class="logos-row">
+    <div class="logo-pill">Orderwise</div>
+    <div class="logo-pill">Microsoft Outlook</div>
+    <div class="logo-pill">HubSpot</div>
+    <div class="logo-pill">DPD</div>
+    <div class="logo-pill">FedEx</div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="section" id="how-it-works">
+  <p class="section-label">How it works</p>
+  <h2>From email to Orderwise<br>in three steps</h2>
+  <p class="section-sub">No manual data entry. No copy and paste. No missed part numbers.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Email arrives</h3>
+      <p>A customer sends a quote request — plain text, PDF, or any format. Processa reads it instantly, extracting every product, quantity and delivery detail.</p>
+      <span class="step-tag">Any format supported</span>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Parts matched</h3>
+      <p>AI searches your Orderwise catalogue, matches part numbers and descriptions, flags ambiguities, and suggests alternatives when items aren't in stock.</p>
+      <span class="step-tag">Your catalogue, your prices</span>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Quote loaded</h3>
+      <p>With one click, Processa opens Orderwise, finds the customer, creates the quote, and loads every line — ready for you to review and send.</p>
+      <span class="step-tag">Orderwise native</span>
+    </div>
+  </div>
+</div>
+
+<!-- BENEFITS -->
+<div class="benefits-section" id="benefits">
+  <div class="benefits-inner">
+    <div>
+      <p class="section-label">Why Processa</p>
+      <h2>Your best people should be selling, not typing</h2>
+      <p class="section-sub">Every hour spent processing routine quotes is an hour not spent winning new business.</p>
+      <div class="benefits-list">
+        <div class="benefit">
+          <div class="benefit-icon">⚡</div>
+          <div>
+            <h4>Quotes in seconds, not hours</h4>
+            <p>Process 50+ quotes a day without adding headcount. Respond faster than your competitors every time.</p>
+          </div>
+        </div>
+        <div class="benefit">
+          <div class="benefit-icon">🎯</div>
+          <div>
+            <h4>Intelligent part matching</h4>
+            <p>Understands brand names, descriptions and customer shorthand. Knows that "Kopex" means CO25, and "galv tube" means GCC25-3M.</p>
+          </div>
+        </div>
+        <div class="benefit">
+          <div class="benefit-icon">🔒</div>
+          <div>
+            <h4>Runs on your machine</h4>
+            <p>Your catalogue, your customers, your prices — all stay on your system. Nothing is sent to external servers.</p>
+          </div>
+        </div>
+        <div class="benefit">
+          <div class="benefit-icon">📈</div>
+          <div>
+            <h4>Frees your team to sell</h4>
+            <p>When quotes process themselves, your salespeople can focus on outbound calls, high-value deals and building relationships.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">50<span>+</span></div>
+        <div class="stat-label">Quotes processed per day, automatically</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">4<span>s</span></div>
+        <div class="stat-label">Average time from email to loaded quote</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">90<span>%</span></div>
+        <div class="stat-label">Of line items matched automatically</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">£0</div>
+        <div class="stat-label">Extra staff needed to handle more volume</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHO ITS FOR -->
+<div class="who-section" id="who">
+  <div class="who-inner">
+    <p class="section-label">Who it's for</p>
+    <h2>Built for Orderwise distributors</h2>
+    <div class="who-grid">
+      <div class="who-card">
+        <div class="who-icon">⚡</div>
+        <h3>Electrical wholesalers</h3>
+        <p>Handle high volumes of incoming quote requests with complex part numbers, brand names and tiered pricing — all matched automatically.</p>
+      </div>
+      <div class="who-card">
+        <div class="who-icon">🔧</div>
+        <h3>Industrial distributors</h3>
+        <p>Process quote emails with dozens of line items — fixings, cable management, conduit systems — without touching Orderwise manually.</p>
+      </div>
+      <div class="who-card">
+        <div class="who-icon">📦</div>
+        <h3>Trade suppliers</h3>
+        <p>Any Orderwise user receiving quote requests by email. If your sales team spends hours a day in Orderwise, Processa gives that time back.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA / WAITLIST -->
+<div class="cta-section" id="waitlist">
+  <div class="cta-inner">
+    <p class="section-label">Early access</p>
+    <h2>See it working in your Orderwise</h2>
+    <p>We're onboarding a small number of Orderwise distributors. Book a 20-minute demo and see Processa process a real email from your inbox.</p>
+    <form class="waitlist-form" onsubmit="handleSubmit(event)">
+      <input type="email" placeholder="your@email.com" required id="emailInput">
+      <button type="submit" class="btn-primary">Book demo</button>
+    </form>
+    <p class="cta-note">No commitment. We'll reach out within 24 hours.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Proces<span>sa</span></div>
+  <p>© 2026 Processa Ltd · <a href="mailto:hello@processa.co.uk">hello@processa.co.uk</a></p>
+  <p><a href="#">Privacy</a> · <a href="#">Terms</a></p>
+</footer>
+
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  const email = document.getElementById('emailInput').value;
+  const btn = e.target.querySelector('button');
+  btn.textContent = '✓ We\'ll be in touch';
+  btn.style.background = '#0a7c4e';
+  btn.disabled = true;
+  // In production, send to your backend or Formspree
+  console.log('Demo request from:', email);
+}
+</script>
+
+</body>
+</html>
