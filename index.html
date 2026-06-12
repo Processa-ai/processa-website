@@ -604,8 +604,105 @@ DEPLOYING CHANGES:
   footer a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
   footer a:hover { color: var(--text); }
 
+  /* ROI CALCULATOR */
+  .roi-section {
+    position: relative; z-index: 1;
+    background: var(--bg-2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 90px 5%;
+  }
+  .roi-inner { max-width: 1200px; margin: 0 auto; }
+
+  .roi-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: start; margin-top: 60px;
+  }
+
+  .roi-left h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px; color: var(--text);
+    line-height: 1.2; margin-bottom: 16px; letter-spacing: -0.4px;
+  }
+  .roi-left p { font-size: 15px; color: var(--text-mid); line-height: 1.65; margin-bottom: 20px; }
+
+  .roi-quote {
+    border-left: 2px solid var(--accent);
+    padding-left: 20px; margin-top: 32px;
+  }
+  .roi-quote p { font-size: 14px; color: var(--text-mid); font-style: italic; margin-bottom: 8px; }
+  .roi-quote span { font-size: 12px; color: var(--text-dim); font-style: normal; }
+
+  .roi-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-bright);
+    border-radius: var(--radius); padding: 36px;
+    box-shadow: 0 0 0 1px rgba(59,130,246,0.05), 0 24px 60px rgba(0,0,0,0.3);
+    position: relative; overflow: hidden;
+  }
+  .roi-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+
+  .roi-card-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--accent-bright); margin-bottom: 24px;
+  }
+
+  .roi-slider-group { margin-bottom: 28px; }
+  .roi-slider-top {
+    display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px;
+  }
+  .roi-slider-top label { font-size: 14px; color: var(--text-mid); }
+  .roi-slider-top .roi-val {
+    font-size: 20px; font-weight: 600; color: var(--text);
+    font-family: 'DM Serif Display', serif;
+  }
+
+  .roi-range {
+    width: 100%; -webkit-appearance: none; appearance: none;
+    height: 3px; border-radius: 2px; background: var(--border-bright);
+    outline: none; cursor: pointer; accent-color: var(--accent);
+  }
+  .roi-range::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 18px; height: 18px;
+    border-radius: 50%; background: var(--accent); cursor: pointer;
+    box-shadow: 0 0 10px rgba(59,130,246,0.5);
+  }
+  .roi-range::-moz-range-thumb {
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--accent); border: none; cursor: pointer;
+    box-shadow: 0 0 10px rgba(59,130,246,0.5);
+  }
+
+  .roi-metrics {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 10px; margin: 28px 0;
+  }
+  .roi-metric {
+    background: var(--bg-3); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 16px 14px; text-align: center;
+  }
+  .roi-metric-label { font-size: 11px; color: var(--text-dim); margin-bottom: 6px; line-height: 1.3; }
+  .roi-metric-value { font-size: 22px; font-weight: 600; color: var(--text); font-family: 'DM Serif Display', serif; }
+  .roi-metric-value.positive { color: var(--green); }
+
+  .roi-verdict {
+    border-radius: var(--radius-sm); padding: 14px 16px;
+    font-size: 13px; line-height: 1.6;
+    border: 1px solid rgba(16,185,129,0.25);
+    background: var(--green-dim); color: var(--green);
+  }
+  .roi-verdict.warn {
+    border-color: rgba(245,158,11,0.25);
+    background: rgba(245,158,11,0.08); color: var(--amber);
+  }
+  .roi-footnote { font-size: 11px; color: var(--text-dim); margin-top: 14px; text-align: center; }
+
   /* RESPONSIVE */
   @media (max-width: 900px) {
+    .roi-layout { grid-template-columns: 1fr; gap: 40px; }
     .hero { grid-template-columns: 1fr; gap: 48px; padding: 70px 5%; }
     .steps { grid-template-columns: 1fr; }
     .features-grid { grid-template-columns: 1fr; }
@@ -641,6 +738,7 @@ DEPLOYING CHANGES:
     <a href="#how-it-works">How it works</a>
     <a href="#features">Features</a>
     <a href="#who">Who it's for</a>
+    <a href="#roi">ROI calculator</a>
     <a href="#demo" class="nav-cta">Book a demo</a>
   </div>
 </nav>
@@ -776,7 +874,7 @@ DEPLOYING CHANGES:
       <div class="feature-card">
         <div class="feature-icon">🧠</div>
         <h3>Intelligent part matching</h3>
-        <p>Understands your industry terminology, brand names and customer shorthand. Trained on your specific catalogue — so it knows exactly what your customers mean, even when they don't use the correct part number.</p>
+        <p>Understands that "Kopex" means flexible conduit, "galv tube" means GCC25-3M, and "springed zebs" means M10 spring zebedee nuts. Your product knowledge, encoded into AI.</p>
         <span class="feature-tag">✓ Industry-specific</span>
       </div>
       <div class="feature-card">
@@ -860,6 +958,94 @@ DEPLOYING CHANGES:
   </div>
 </div>
 
+<!-- ROI CALCULATOR -->
+<div class="roi-section" id="roi">
+  <div class="roi-inner">
+    <p class="section-label">Return on investment</p>
+    <h2>See what your team could save<br>every month</h2>
+    <div class="roi-layout">
+
+      <div class="roi-left">
+        <h3>Your team is spending thousands every month on admin they shouldn't have to do.</h3>
+        <p>Sales staff processing quote emails and purchase orders manually spend 2–4 hours a day on work that Processa handles automatically. That time is worth more in front of customers.</p>
+        <p>Most customers see the value immediately — faster response times win more orders, and staff freed from data entry focus on the deals that actually grow the business.</p>
+        <div class="roi-quote">
+          <p>"What used to take us half the morning now happens overnight. The team comes in and the quotes are already done."</p>
+          <span>— Orderwise distributor, early access customer</span>
+        </div>
+      </div>
+
+      <div class="roi-card">
+        <div class="roi-card-label">Calculate your saving</div>
+
+        <div class="roi-slider-group">
+          <div class="roi-slider-top">
+            <label for="roi-staff">Staff processing quotes and orders</label>
+            <span class="roi-val" id="roi-staff-out">3</span>
+          </div>
+          <input type="range" class="roi-range" id="roi-staff" min="1" max="20" value="3" step="1">
+        </div>
+
+        <div class="roi-slider-group">
+          <div class="roi-slider-top">
+            <label for="roi-hours">Hours per day on processing orders and quotes</label>
+            <span class="roi-val" id="roi-hours-out">2</span>
+          </div>
+          <input type="range" class="roi-range" id="roi-hours" min="0.5" max="8" value="2" step="0.5">
+        </div>
+
+        <div class="roi-metrics">
+          <div class="roi-metric">
+            <div class="roi-metric-label">Monthly admin cost</div>
+            <div class="roi-metric-value" id="roi-admin">£1,980</div>
+          </div>
+          <div class="roi-metric">
+            <div class="roi-metric-label">Hours saved per month</div>
+            <div class="roi-metric-value positive" id="roi-hours-saved">132</div>
+          </div>
+        </div>
+
+        <div class="roi-verdict" id="roi-verdict"></div>
+        <p class="roi-footnote">Based on 22 working days/month at £15/hr average staff cost.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var staffEl = document.getElementById('roi-staff');
+  var hoursEl = document.getElementById('roi-hours');
+  var staffOut = document.getElementById('roi-staff-out');
+  var hoursOut = document.getElementById('roi-hours-out');
+  var adminEl = document.getElementById('roi-admin');
+  var hoursSavedEl = document.getElementById('roi-hours-saved');
+  var verdictEl = document.getElementById('roi-verdict');
+
+  function calcROI() {
+    var staff = parseInt(staffEl.value);
+    var hours = parseFloat(hoursEl.value);
+    staffOut.textContent = staff;
+    hoursOut.textContent = hours;
+    var admin = Math.round(staff * hours * 22 * 15);
+    var hoursSaved = Math.round(staff * hours * 22);
+    adminEl.textContent = '£' + admin.toLocaleString();
+    hoursSavedEl.textContent = hoursSaved;
+    verdictEl.className = admin >= 2000 ? 'roi-verdict' : 'roi-verdict warn';
+    if (admin >= 2000) {
+      verdictEl.textContent = 'Your team spends £' + admin.toLocaleString() + '/month on processing orders and quotes. Processa handles it automatically — freeing ' + hoursSaved + ' hours every month for selling.';
+    } else {
+      verdictEl.textContent = 'Even at this scale, ' + hoursSaved + ' hours/month freed from admin lets your team focus on higher-value work — and respond to customers faster than competitors.';
+    }
+  }
+
+  staffEl.addEventListener('input', calcROI);
+  hoursEl.addEventListener('input', calcROI);
+  calcROI();
+})();
+</script>
+
 <!-- CTA -->
 <div class="cta-section" id="demo">
   <div class="cta-glow"></div>
@@ -897,6 +1083,5 @@ DEPLOYING CHANGES:
   <p><a href="#">Privacy</a> · <a href="#">Terms</a></p>
 </footer>
 
-<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "45c5642cc7744524a74c073c50344223"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
